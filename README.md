@@ -14,7 +14,7 @@ Vue.use(textVoice)
 ## 语法
 1.开启文字转语音
 
-Vue.$textVoice.speech('这是要转成语音的文字')
+Vue.$textVoice.speech('这是要转成语音的文字', { rate: 1 })
 
 
 2.静音

@@ -16,8 +16,7 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log('点击了logo')
-      this.$textToSpeech.initSpeech('测试文字')
+      this.$textVoice.speech(`测试文字`, { rate: 2})
     }
   }
 }

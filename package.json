@@ -1,7 +1,7 @@
 {
   "name": "text-voice",
   "main": "lib/textVoice.umd.min.js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",

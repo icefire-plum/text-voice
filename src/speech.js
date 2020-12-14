@@ -1,9 +1,9 @@
-console.log('test', Boolean(window.speechSynthesis) )
 
 const option = {
     text: '',
     volume: 1,
     timer: '',        // 截取文字定时器  
+    rate: 1           // 语速，默认是1,但语速并没有1字/?ms固定值，取平均值373
 }
 const method = {}
 
@@ -19,7 +19,7 @@ if(!window.speechSynthesis || !SpeechSynthesisUtterance) {
         // 停止播放声音并截取文字
         // 获取当前读到的文字,并清空已经朗读过的文字,开启截取文字
         msg.onend = (e) => {
-            const textIndex = Math.ceil(e.elapsedTime/373)
+            const textIndex = Math.ceil(e.elapsedTime/373*option.rate)
             option.text = option.text.substr(textIndex, option.text.length-1)
             method.readText()
         }
@@ -39,6 +39,7 @@ if(!window.speechSynthesis || !SpeechSynthesisUtterance) {
     // 朗读
     method.speak = () => {
         msg.text = option.text
+        msg.rate = option.rate
         // 朗读结束清空文字
         msg.onend = (e) => {
             option.text = ''
@@ -46,7 +47,14 @@ if(!window.speechSynthesis || !SpeechSynthesisUtterance) {
         synth.speak(msg)
     }
     // 开启文字转语音
-    method.speech = (text) => {
+    method.speech = (text, opt) => {
+        for (const key in option) {
+            for (const item in opt) {
+                if(item == key) {
+                    option[key] = opt[item]
+                }
+            }
+        }
         option.text = text
         // 如果是静音就截取文字
         if(option.volume == 0) {
@@ -64,7 +72,7 @@ if(!window.speechSynthesis || !SpeechSynthesisUtterance) {
                 option.text = ''
                 clearInterval(option.timer)
             }
-        }, 373)
+        }, 373/option.rate)
     }
 }
 

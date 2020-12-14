@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import speech from './index'
+import textVoice from './index'
 
-Vue.use(speech)
+Vue.use(textVoice)
 
 
 Vue.config.productionTip = false
